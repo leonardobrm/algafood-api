@@ -1,11 +1,12 @@
-package com.algaworks.algafood.domain.dto.request;
+package com.algaworks.algafood.domain.dto.request.restaurant;
 
 import com.sun.istack.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
-@Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor

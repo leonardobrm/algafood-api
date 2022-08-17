@@ -1,14 +1,12 @@
 package com.algaworks.algafood.domain.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
@@ -19,4 +17,11 @@ public class State {
     private Long id;
     @Column
     private String name;
+    @Column
+    private String uf;
+
+    public State(String name, String uf) {
+        this.name = name;
+        this.uf = uf;
+    }
 }

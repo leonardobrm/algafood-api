@@ -26,6 +26,7 @@ public class ExceptionHandlerController {
     public ResponseEntity<ErrorResponse> HandleGenericException(RuntimeException err, HttpServletRequest request) {
 
         ErrorResponse errorObjetc = ErrorResponse.generateErrorResponse(err.getMessage(), HttpStatus.BAD_REQUEST.value(), request);
+        log.error("Message error: " + err.getMessage());
         return ResponseEntity.status(errorObjetc.getStatus()).body(errorObjetc);
     }
 }
