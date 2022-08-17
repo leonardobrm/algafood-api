@@ -30,7 +30,7 @@ public class RestaurantController {
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@Validated @PathVariable long id) {
         restaurantService.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @PutMapping("/{id}")

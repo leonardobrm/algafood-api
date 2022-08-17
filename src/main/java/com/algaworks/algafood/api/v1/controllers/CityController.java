@@ -51,6 +51,6 @@ public class CityController {
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@Validated @PathVariable Long id){
         this.cityService.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

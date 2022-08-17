@@ -47,6 +47,6 @@ public class KitchenController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Kitchen> delete(@Validated @PathVariable long id){
         this.kitchenService.delete(id);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
