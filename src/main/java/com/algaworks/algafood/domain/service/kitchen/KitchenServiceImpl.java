@@ -1,7 +1,7 @@
 package com.algaworks.algafood.domain.service.kitchen;
 
-import com.algaworks.algafood.domain.dto.request.CreateKitchenRequest;
-import com.algaworks.algafood.domain.dto.request.UpdatedKitchenRequest;
+import com.algaworks.algafood.domain.dto.request.kitchen.CreateKitchenRequest;
+import com.algaworks.algafood.domain.dto.request.kitchen.UpdatedKitchenRequest;
 import com.algaworks.algafood.domain.entities.Kitchen;
 import com.algaworks.algafood.domain.exception.errors.ApiException;
 import com.algaworks.algafood.domain.repository.kitchen.IKitchenRepository;
@@ -31,11 +31,8 @@ public class KitchenServiceImpl implements IKitchenService {
     @Override
     public void create(CreateKitchenRequest request) {
         Optional<Kitchen> kitchenAlreadyExists = this.kitchenRepository.findByName(request.getName());
+        if (kitchenAlreadyExists.isPresent()) throw new ApiException("Kitchen already exists", HttpStatus.BAD_REQUEST);
 
-        if (kitchenAlreadyExists.isPresent()) {
-            String MESSAGE_ERROR = "Kitchen already exists";
-            throw new ApiException(MESSAGE_ERROR, HttpStatus.BAD_REQUEST);
-        }
         this.kitchenRepository.save(new Kitchen(request.getName()));
         log.info("Kitchen created successufully");
     }
@@ -43,8 +40,7 @@ public class KitchenServiceImpl implements IKitchenService {
     @Override
     public void update(long id, UpdatedKitchenRequest request) {
         Kitchen findKitchenExists = kitchenRepository.findById(id).orElseThrow(() -> {
-            String MESSAGE_ERROR = "Kitchen not exists";
-            throw new ApiException(MESSAGE_ERROR, HttpStatus.NOT_FOUND);
+            throw new ApiException("Kitchen not exists", HttpStatus.NOT_FOUND);
         });
 
         BeanUtils.copyProperties(request, findKitchenExists, "id");
@@ -55,30 +51,27 @@ public class KitchenServiceImpl implements IKitchenService {
     @Override
     public void delete(long id) {
         Kitchen findKitchenExists = kitchenRepository.findById(id).orElseThrow(() -> {
-            String MESSAGE_ERROR = "Kitchen not found";
-            throw new ApiException(MESSAGE_ERROR, HttpStatus.NOT_FOUND);
+            throw new ApiException("Kitchen not found", HttpStatus.NOT_FOUND);
         });
 
         //validated if there is a restaurant using this kitchen
         this.restaurantRepository.findByKitchenId(findKitchenExists.getId()).ifPresent(restaurant -> {
-            if (restaurant.size() > 0) {
-                String MESSAGE_ERROR = "There is a restaurant using the kitchen";
-                throw new ApiException(MESSAGE_ERROR, HttpStatus.BAD_REQUEST);
-            }
+            if (restaurant.size() > 0)
+                throw new ApiException("There is a restaurant using the kitchen", HttpStatus.CONFLICT);
         });
         kitchenRepository.delete(findKitchenExists);
         log.info("Kitchen deleted successfully");
     }
 
     @Override
-    public Kitchen getById(long id) {
-        Optional<Kitchen> findKitchenExists = this.kitchenRepository.findById(id);
-
-        return findKitchenExists.orElse(null);
+    public Kitchen findById(long id) {
+        return this.kitchenRepository.findById(id).orElseThrow(() -> {
+            throw new ApiException("Kitchen not found", HttpStatus.NOT_FOUND);
+        });
     }
 
     @Override
-    public List<Kitchen> getAll() {
+    public List<Kitchen> findAll() {
         return this.kitchenRepository.findAll();
     }
 }

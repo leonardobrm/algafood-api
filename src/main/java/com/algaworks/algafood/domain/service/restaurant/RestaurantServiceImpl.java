@@ -1,7 +1,7 @@
 package com.algaworks.algafood.domain.service.restaurant;
 
-import com.algaworks.algafood.domain.dto.request.CreateRestaurantRequest;
-import com.algaworks.algafood.domain.dto.request.UpdateRestaurantRequest;
+import com.algaworks.algafood.domain.dto.request.restaurant.CreateRestaurantRequest;
+import com.algaworks.algafood.domain.dto.request.restaurant.UpdateRestaurantRequest;
 import com.algaworks.algafood.domain.entities.Kitchen;
 import com.algaworks.algafood.domain.entities.Restaurant;
 import com.algaworks.algafood.domain.exception.errors.ApiException;
@@ -52,7 +52,9 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
     @Override
     public void update(long id, UpdateRestaurantRequest request) {
-        Restaurant findRestaurantExists = restaurantRepository.findById(id).orElseThrow(() -> new Error("Restaurant not found"));
+        Restaurant findRestaurantExists = restaurantRepository.findById(id).orElseThrow(() -> {
+            throw new ApiException("Restaurant not found", HttpStatus.NOT_FOUND);
+        });
         BeanUtils.copyProperties(request, findRestaurantExists, "id", "kitchen", "created_at");
 
         restaurantRepository.save(findRestaurantExists);
@@ -60,12 +62,12 @@ public class RestaurantServiceImpl implements IRestaurantService {
     }
 
     @Override
-    public List<Restaurant> getAll() {
+    public List<Restaurant> findAll() {
         return this.restaurantRepository.findAll(Sort.by("name"));
     }
 
     @Override
-    public Restaurant get(long id) {
+    public Restaurant findById(long id) {
         return this.restaurantRepository.findById(id).orElse(null);
     }
 }

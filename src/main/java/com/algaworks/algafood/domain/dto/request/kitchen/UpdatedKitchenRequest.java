@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.dto.request;
+package com.algaworks.algafood.domain.dto.request.kitchen;
 
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateKitchenRequest {
+public class UpdatedKitchenRequest {
     @NotNull
     private String name;
 }

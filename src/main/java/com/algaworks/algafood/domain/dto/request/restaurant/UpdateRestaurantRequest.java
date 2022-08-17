@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.dto.request;
+package com.algaworks.algafood.domain.dto.request.restaurant;
 
 import com.sun.istack.NotNull;
 import lombok.*;

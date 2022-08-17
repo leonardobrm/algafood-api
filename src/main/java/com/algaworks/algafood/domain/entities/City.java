@@ -1,14 +1,12 @@
 package com.algaworks.algafood.domain.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
@@ -21,4 +19,9 @@ public class City {
     private String name;
     @ManyToOne
     private State state;
+
+    public City(String name, State state) {
+        this.name = name;
+        this.state = state;
+    }
 }
