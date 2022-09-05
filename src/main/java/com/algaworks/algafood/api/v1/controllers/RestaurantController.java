@@ -14,7 +14,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/restaurants")
 public class RestaurantController {
-
     private final IRestaurantService restaurantService;
 
     public RestaurantController(IRestaurantService restaurantService) {
@@ -48,6 +47,12 @@ public class RestaurantController {
     @GetMapping()
     public ResponseEntity<List<Restaurant>> getAll() {
         List<Restaurant> restaurants = restaurantService.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(restaurants);
+    }
+
+    @GetMapping("/free-shippings")
+    public ResponseEntity<List<Restaurant>> test() {
+        List<Restaurant> restaurants = this.restaurantService.findAllWithFreeShipping();
         return ResponseEntity.status(HttpStatus.OK).body(restaurants);
     }
 }

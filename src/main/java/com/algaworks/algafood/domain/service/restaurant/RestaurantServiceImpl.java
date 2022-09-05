@@ -7,6 +7,7 @@ import com.algaworks.algafood.domain.entities.Restaurant;
 import com.algaworks.algafood.domain.exception.errors.ApiException;
 import com.algaworks.algafood.domain.repository.kitchen.IKitchenRepository;
 import com.algaworks.algafood.domain.repository.restaurant.IRestaurantRepository;
+import com.algaworks.algafood.infrastructure.repository.specification.RestaurantSpecification;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 @Slf4j
 @Service
@@ -68,6 +70,12 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
     @Override
     public Restaurant findById(long id) {
-        return this.restaurantRepository.findById(id).orElse(null);
+        Supplier supplier = () -> new ApiException("Restaurant not found", HttpStatus.NOT_FOUND);
+        return this.restaurantRepository.findById(id).orElseThrow(supplier);
+    }
+
+    @Override
+    public List<Restaurant> findAllWithFreeShipping() {
+        return  this.restaurantRepository.findAll(RestaurantSpecification.withFreeShipping());
     }
 }

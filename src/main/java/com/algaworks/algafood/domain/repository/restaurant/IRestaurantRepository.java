@@ -2,13 +2,14 @@ package com.algaworks.algafood.domain.repository.restaurant;
 
 import com.algaworks.algafood.domain.entities.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface IRestaurantRepository extends JpaRepository<Restaurant, Long> {
+public interface IRestaurantRepository extends JpaRepository<Restaurant, Long>, JpaSpecificationExecutor<Restaurant> {
     Optional<Restaurant> findByName(String name);
 
     @Query("from Restaurant r where r.kitchen.id = :id")
