@@ -30,7 +30,7 @@ public class StateServiceImpl implements IStateService {
     public void create(CreateStateRequest request) {
         Optional<State> verifyStateExists = this.stateRepository.findByName(request.getName());
 
-        if(verifyStateExists.isPresent())  throw new ApiException("State already exists", HttpStatus.BAD_REQUEST);
+        if (verifyStateExists.isPresent()) throw new ApiException("State already exists", HttpStatus.BAD_REQUEST);
 
         State newState = new State(request.getName(), request.getUf());
 
@@ -46,8 +46,8 @@ public class StateServiceImpl implements IStateService {
     @Override
     public State findById(Long id) {
         return this.stateRepository.findById(id).orElseThrow(() -> {
-             throw new ApiException("State not found", HttpStatus.NOT_FOUND);
-         });
+            throw new ApiException("State not found", HttpStatus.NOT_FOUND);
+        });
     }
 
     @Override
@@ -63,7 +63,7 @@ public class StateServiceImpl implements IStateService {
                 : verifyStateExists.getUf();
 
         State newState = new State(name, uf);
-        BeanUtils.copyProperties(newState,  verifyStateExists, "id");
+        BeanUtils.copyProperties(newState, verifyStateExists, "id");
 
         this.stateRepository.save(verifyStateExists);
         log.info("state updated successfully");

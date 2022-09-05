@@ -22,7 +22,7 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public ResponseEntity create(@Validated @RequestBody CreateRestaurantRequest request) {
+    public ResponseEntity post(@Validated @RequestBody CreateRestaurantRequest request) {
         restaurantService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -34,19 +34,19 @@ public class RestaurantController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable long id, @Validated @RequestBody UpdateRestaurantRequest request) {
+    public ResponseEntity put(@PathVariable long id, @Validated @RequestBody UpdateRestaurantRequest request) {
         restaurantService.update(id, request);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Restaurant> findById(@Validated @PathVariable long id) {
+    public ResponseEntity<Restaurant> getById(@Validated @PathVariable long id) {
         Restaurant restaurant = restaurantService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(restaurant);
     }
 
     @GetMapping()
-    public ResponseEntity<List<Restaurant>> findAll() {
+    public ResponseEntity<List<Restaurant>> getAll() {
         List<Restaurant> restaurants = restaurantService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(restaurants);
     }

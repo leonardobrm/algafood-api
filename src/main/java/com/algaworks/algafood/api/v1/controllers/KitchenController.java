@@ -21,25 +21,25 @@ public class KitchenController {
     }
 
     @PostMapping
-    public ResponseEntity<Kitchen> create(@Validated @RequestBody CreateKitchenRequest request) {
+    public ResponseEntity<Kitchen> post(@Validated @RequestBody CreateKitchenRequest request) {
         this.kitchenService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping
-    public ResponseEntity<List<Kitchen>> findAll() {
+    public ResponseEntity<List<Kitchen>> getAll() {
         List<Kitchen> kitchens = this.kitchenService.findAll();
         return ResponseEntity.status(HttpStatus.OK).body(kitchens);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Kitchen> findById(@Validated @PathVariable long id) {
+    public ResponseEntity<Kitchen> getById(@Validated @PathVariable long id) {
         Kitchen kitchen = this.kitchenService.findById(id);
         return  ResponseEntity.status(HttpStatus.OK).body(kitchen);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Kitchen> update(@Validated @PathVariable long id, @Validated @RequestBody UpdatedKitchenRequest request) {
+    public ResponseEntity<Kitchen> put(@Validated @PathVariable long id, @Validated @RequestBody UpdatedKitchenRequest request) {
         this.kitchenService.update(id, request);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

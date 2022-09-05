@@ -22,26 +22,26 @@ public class StateController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody CreateStateRequest request){
+    public ResponseEntity post(@RequestBody CreateStateRequest request){
         this.stateService.create(request);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping
-    public ResponseEntity<List<State>>findAll(){
+    public ResponseEntity<List<State>>getAll(){
         List<State> states = this.stateService.findAll();
 
         return ResponseEntity.status(HttpStatus.OK).body(states);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<State>findById(@Validated @PathVariable Long id){
+    public ResponseEntity<State>getById(@Validated @PathVariable Long id){
         State state = this.stateService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(state);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@Validated @PathVariable Long id, @RequestBody UpdateStateRequest request){
+    public ResponseEntity put(@Validated @PathVariable Long id, @RequestBody UpdateStateRequest request){
         this.stateService.update(id, request);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
