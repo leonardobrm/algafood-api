@@ -1,10 +1,12 @@
 package com.algaworks.algafood.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,17 +25,20 @@ public class Restaurant {
     private BigDecimal shippingRate;
     @Column(name = "is_open")
     private boolean isOpen;
-    @ManyToOne()
+    @ManyToOne
     private Kitchen kitchen;
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "restaurant_form_payment",
+    joinColumns = @JoinColumn(name = "restaurant_id"),
+    inverseJoinColumns = @JoinColumn(name = "form_payment_id"))
+    private List<FormOfPayment> formOfPayments;
+    @Embedded
+    private Address address;
     @Column
     private Date created_at;
     @Column
     private Date updated_at;
-
-    public Restaurant(String name, BigDecimal shippingRate) {
-        this.name = name;
-        this.shippingRate = shippingRate;
-    }
 
     @PrePersist
     private void prePersist() {

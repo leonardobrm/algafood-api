@@ -5,29 +5,29 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
-@Entity
+@Embeddable
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 public class Address {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column
+    @Column(name = "address_cep")
     private String cep;
-    @Column
+    @Column(name = "address_public_place")
     private String publicPlace;
-    @Column
+    @Column(name = "address_number")
     private String number;
-    @Column
+    @Column(name = "address_complement")
     private String complement;
-    @Column
+    @Column(name = "address_district")
     private String district;
-
-    //@ManyToOne
-    //private City city;
+    @ManyToOne
+    @JoinColumn(name = "address_city_id")
+    private City city;
 }

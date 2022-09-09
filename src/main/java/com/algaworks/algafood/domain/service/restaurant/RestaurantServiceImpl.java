@@ -34,14 +34,10 @@ public class RestaurantServiceImpl implements IRestaurantService {
     public void create(CreateRestaurantRequest request) {
         Optional<Kitchen> findKitchen = this.kitchenRepository.findByName(request.getKitchenName());
         Kitchen kitchen = findKitchen.isEmpty() ? new Kitchen(request.getKitchenName()) : findKitchen.get();
-
         if (findKitchen.isEmpty()) this.kitchenRepository.save(kitchen);
-
         Optional<Restaurant> findRestaurantExists = this.restaurantRepository.findByName(request.getName()).stream().findFirst();
-
         if (findRestaurantExists.isPresent())
             throw new ApiException("Restaurant already exists", HttpStatus.BAD_REQUEST);
-
         Restaurant newRestaurant = new Restaurant(request.getName(), request.getShippingRate(), kitchen);
         this.restaurantRepository.save(newRestaurant);
         log.info("Restaurant created successfully");
@@ -57,8 +53,7 @@ public class RestaurantServiceImpl implements IRestaurantService {
         Restaurant findRestaurantExists = restaurantRepository.findById(id).orElseThrow(() -> {
             throw new ApiException("Restaurant not found", HttpStatus.NOT_FOUND);
         });
-        BeanUtils.copyProperties(request, findRestaurantExists, "id", "kitchen", "created_at");
-
+        BeanUtils.copyProperties(request, findRestaurantExists, "id", "kitchen", "created_at", "formOfPayments", "address");
         restaurantRepository.save(findRestaurantExists);
         log.info("restaurant updated successfully");
     }
@@ -76,6 +71,6 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
     @Override
     public List<Restaurant> findAllWithFreeShipping() {
-        return  this.restaurantRepository.findAll(RestaurantSpecification.withFreeShipping());
+        return this.restaurantRepository.findAll(RestaurantSpecification.withFreeShipping());
     }
 }
