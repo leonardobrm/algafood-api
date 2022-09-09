@@ -53,7 +53,7 @@ public class RestaurantServiceImpl implements IRestaurantService {
         Restaurant findRestaurantExists = restaurantRepository.findById(id).orElseThrow(() -> {
             throw new ApiException("Restaurant not found", HttpStatus.NOT_FOUND);
         });
-        BeanUtils.copyProperties(request, findRestaurantExists, "id", "kitchen", "created_at", "formOfPayments", "address");
+        BeanUtils.copyProperties(request, findRestaurantExists, "id", "kitchen", "created_at", "formOfPayments", "address", "products");
         restaurantRepository.save(findRestaurantExists);
         log.info("restaurant updated successfully");
     }

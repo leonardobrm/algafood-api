@@ -3,6 +3,7 @@ package com.algaworks.algafood.domain.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -10,8 +11,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class City {
-
+public class Product {
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,11 +20,15 @@ public class City {
     @Column
     private String name;
 
-    @ManyToOne
-    private State state;
+    @Column
+    private String description;
 
-    public City(String name, State state) {
-        this.name = name;
-        this.state = state;
-    }
+    @Column
+    private BigDecimal price;
+
+    @Column
+    private Boolean active;
+
+    @ManyToOne
+    private Restaurant restaurant;
 }
