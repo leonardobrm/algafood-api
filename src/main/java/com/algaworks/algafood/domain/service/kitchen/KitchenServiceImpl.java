@@ -3,18 +3,19 @@ package com.algaworks.algafood.domain.service.kitchen;
 import com.algaworks.algafood.domain.dto.request.kitchen.CreateKitchenRequest;
 import com.algaworks.algafood.domain.dto.request.kitchen.UpdatedKitchenRequest;
 import com.algaworks.algafood.domain.entities.Kitchen;
-import com.algaworks.algafood.domain.exception.errors.ApiException;
-import com.algaworks.algafood.domain.repository.kitchen.IKitchenRepository;
-import com.algaworks.algafood.domain.repository.restaurant.IRestaurantRepository;
+import com.algaworks.algafood.infrastructure.exception.errors.ApiException;
+import com.algaworks.algafood.infrastructure.repository.kitchen.IKitchenRepository;
+import com.algaworks.algafood.infrastructure.repository.restaurant.IRestaurantRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class KitchenServiceImpl implements IKitchenService {
 
@@ -23,14 +24,9 @@ public class KitchenServiceImpl implements IKitchenService {
     private final IKitchenRepository kitchenRepository;
     private final IRestaurantRepository restaurantRepository;
 
-    public KitchenServiceImpl(IKitchenRepository kitchenRepository, IRestaurantRepository restaurantRepository) {
-        this.kitchenRepository = kitchenRepository;
-        this.restaurantRepository = restaurantRepository;
-    }
-
     @Override
-    public void create(CreateKitchenRequest request) {
-        Optional<Kitchen> kitchenAlreadyExists = this.kitchenRepository.findByName(request.getName());
+    public void create(final CreateKitchenRequest request) {
+        var kitchenAlreadyExists = this.kitchenRepository.findByName(request.getName());
         if (kitchenAlreadyExists.isPresent()) throw new ApiException("Kitchen already exists", HttpStatus.BAD_REQUEST);
 
         this.kitchenRepository.save(new Kitchen(request.getName()));
@@ -38,8 +34,8 @@ public class KitchenServiceImpl implements IKitchenService {
     }
 
     @Override
-    public void update(long id, UpdatedKitchenRequest request) {
-        Kitchen findKitchenExists = kitchenRepository.findById(id).orElseThrow(() -> {
+    public void update(final long id, final UpdatedKitchenRequest request) {
+        var findKitchenExists = kitchenRepository.findById(id).orElseThrow(() -> {
             throw new ApiException("Kitchen not exists", HttpStatus.NOT_FOUND);
         });
 
@@ -49,8 +45,8 @@ public class KitchenServiceImpl implements IKitchenService {
     }
 
     @Override
-    public void delete(long id) {
-        Kitchen findKitchenExists = kitchenRepository.findById(id).orElseThrow(() -> {
+    public void delete(final long id) {
+        var findKitchenExists = kitchenRepository.findById(id).orElseThrow(() -> {
             throw new ApiException("Kitchen not found", HttpStatus.NOT_FOUND);
         });
 
@@ -64,7 +60,7 @@ public class KitchenServiceImpl implements IKitchenService {
     }
 
     @Override
-    public Kitchen findById(long id) {
+    public Kitchen findById(final long id) {
         return this.kitchenRepository.findById(id).orElseThrow(() -> {
             throw new ApiException("Kitchen not found", HttpStatus.NOT_FOUND);
         });

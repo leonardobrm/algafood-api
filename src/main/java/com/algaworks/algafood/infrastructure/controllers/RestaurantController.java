@@ -1,9 +1,10 @@
-package com.algaworks.algafood.api.v1.controllers;
+package com.algaworks.algafood.infrastructure.controllers;
 
 import com.algaworks.algafood.domain.dto.request.restaurant.CreateRestaurantRequest;
 import com.algaworks.algafood.domain.dto.request.restaurant.UpdateRestaurantRequest;
 import com.algaworks.algafood.domain.entities.Restaurant;
 import com.algaworks.algafood.domain.service.restaurant.IRestaurantService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -11,14 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/v1/restaurants")
 public class RestaurantController {
     private final IRestaurantService restaurantService;
 
-    public RestaurantController(IRestaurantService restaurantService) {
-        this.restaurantService = restaurantService;
-    }
 
     @PostMapping
     public ResponseEntity post(@Validated @RequestBody CreateRestaurantRequest request) {

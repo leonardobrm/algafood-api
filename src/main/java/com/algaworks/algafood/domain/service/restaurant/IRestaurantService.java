@@ -7,14 +7,14 @@ import com.algaworks.algafood.domain.entities.Restaurant;
 import java.util.List;
 
 public interface IRestaurantService {
-    void create(CreateRestaurantRequest request);
+    void create(final CreateRestaurantRequest request);
 
-    void delete(long id);
+    void delete(final long id);
 
-    void update(long id, UpdateRestaurantRequest request);
+    void update(final long id, UpdateRestaurantRequest request);
 
     List<Restaurant> findAll();
 
-    Restaurant findById(long id);
+    Restaurant findById(final long id);
     List<Restaurant> findAllWithFreeShipping();
 }

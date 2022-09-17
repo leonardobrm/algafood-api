@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.exception.dto.response;
+package com.algaworks.algafood.infrastructure.exception.dto.response;
 
 import lombok.*;
 
@@ -16,7 +16,7 @@ public class ErrorResponse implements Serializable {
     private String error;
     private String path;
 
-    public static ErrorResponse generateErrorResponse(String error, int status, HttpServletRequest request) {
+    public static ErrorResponse generateErrorResponse(final String error, final int status, final HttpServletRequest request) {
         return ErrorResponse.builder()
                 .error(error)
                 .path(request.getRequestURI())

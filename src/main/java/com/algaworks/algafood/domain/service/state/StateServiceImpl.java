@@ -3,9 +3,10 @@ package com.algaworks.algafood.domain.service.state;
 import com.algaworks.algafood.domain.dto.request.state.CreateStateRequest;
 import com.algaworks.algafood.domain.dto.request.state.UpdateStateRequest;
 import com.algaworks.algafood.domain.entities.State;
-import com.algaworks.algafood.domain.exception.errors.ApiException;
-import com.algaworks.algafood.domain.repository.city.ICityRepository;
-import com.algaworks.algafood.domain.repository.state.IStateRepository;
+import com.algaworks.algafood.infrastructure.exception.errors.ApiException;
+import com.algaworks.algafood.infrastructure.repository.city.ICityRepository;
+import com.algaworks.algafood.infrastructure.repository.state.IStateRepository;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -15,19 +16,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class StateServiceImpl implements IStateService {
 
     private final IStateRepository stateRepository;
     private final ICityRepository cityRepository;
 
-    public StateServiceImpl(IStateRepository stateRepository, ICityRepository cityRepository) {
-        this.stateRepository = stateRepository;
-        this.cityRepository = cityRepository;
-    }
-
     @Override
-    public void create(CreateStateRequest request) {
+    public void create(final CreateStateRequest request) {
         Optional<State> verifyStateExists = this.stateRepository.findByName(request.getName());
 
         if (verifyStateExists.isPresent()) throw new ApiException("State already exists", HttpStatus.BAD_REQUEST);
@@ -44,14 +41,14 @@ public class StateServiceImpl implements IStateService {
     }
 
     @Override
-    public State findById(Long id) {
+    public State findById(final Long id) {
         return this.stateRepository.findById(id).orElseThrow(() -> {
             throw new ApiException("State not found", HttpStatus.NOT_FOUND);
         });
     }
 
     @Override
-    public void update(Long id, UpdateStateRequest request) {
+    public void update(final Long id, final UpdateStateRequest request) {
         State verifyStateExists = this.stateRepository.findById(id).orElseThrow(() -> {
             throw new ApiException("State not found", HttpStatus.NOT_FOUND);
         });
@@ -70,7 +67,7 @@ public class StateServiceImpl implements IStateService {
     }
 
     @Override
-    public void delete(Long id) {
+    public void delete(final Long id) {
         State findStateExists = this.stateRepository.findById(id).orElseThrow(() -> {
             throw new ApiException("state not found", HttpStatus.NOT_FOUND);
         });

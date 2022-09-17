@@ -4,10 +4,11 @@ import com.algaworks.algafood.domain.dto.request.restaurant.CreateRestaurantRequ
 import com.algaworks.algafood.domain.dto.request.restaurant.UpdateRestaurantRequest;
 import com.algaworks.algafood.domain.entities.Kitchen;
 import com.algaworks.algafood.domain.entities.Restaurant;
-import com.algaworks.algafood.domain.exception.errors.ApiException;
-import com.algaworks.algafood.domain.repository.kitchen.IKitchenRepository;
-import com.algaworks.algafood.domain.repository.restaurant.IRestaurantRepository;
-import com.algaworks.algafood.infrastructure.repository.specification.RestaurantSpecification;
+import com.algaworks.algafood.infrastructure.exception.errors.ApiException;
+import com.algaworks.algafood.infrastructure.repository.kitchen.IKitchenRepository;
+import com.algaworks.algafood.infrastructure.repository.restaurant.IRestaurantRepository;
+import com.algaworks.algafood.infrastructure.specification.RestaurantSpecification;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;
@@ -15,30 +16,25 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 @Slf4j
+@AllArgsConstructor
 @Service
 public class RestaurantServiceImpl implements IRestaurantService {
 
     private final IRestaurantRepository restaurantRepository;
     private final IKitchenRepository kitchenRepository;
 
-    public RestaurantServiceImpl(IRestaurantRepository restaurantRepository, IKitchenRepository kitchenRepository) {
-        this.restaurantRepository = restaurantRepository;
-        this.kitchenRepository = kitchenRepository;
-    }
-
     @Override
     public void create(CreateRestaurantRequest request) {
-        Optional<Kitchen> findKitchen = this.kitchenRepository.findByName(request.getKitchenName());
-        Kitchen kitchen = findKitchen.isEmpty() ? new Kitchen(request.getKitchenName()) : findKitchen.get();
+        var findKitchen = this.kitchenRepository.findByName(request.getKitchenName());
+        var kitchen = findKitchen.isEmpty() ? new Kitchen(request.getKitchenName()) : findKitchen.get();
         if (findKitchen.isEmpty()) this.kitchenRepository.save(kitchen);
-        Optional<Restaurant> findRestaurantExists = this.restaurantRepository.findByName(request.getName()).stream().findFirst();
+        var findRestaurantExists = this.restaurantRepository.findByName(request.getName()).stream().findFirst();
         if (findRestaurantExists.isPresent())
             throw new ApiException("Restaurant already exists", HttpStatus.BAD_REQUEST);
-        Restaurant newRestaurant = new Restaurant(request.getName(), request.getShippingRate(), kitchen);
+        var newRestaurant = new Restaurant(request.getName(), request.getShippingRate(), kitchen);
         this.restaurantRepository.save(newRestaurant);
         log.info("Restaurant created successfully");
     }
@@ -50,7 +46,7 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
     @Override
     public void update(long id, UpdateRestaurantRequest request) {
-        Restaurant findRestaurantExists = restaurantRepository.findById(id).orElseThrow(() -> {
+        var findRestaurantExists = restaurantRepository.findById(id).orElseThrow(() -> {
             throw new ApiException("Restaurant not found", HttpStatus.NOT_FOUND);
         });
         BeanUtils.copyProperties(request, findRestaurantExists, "id", "kitchen", "created_at", "formOfPayments", "address", "products");
