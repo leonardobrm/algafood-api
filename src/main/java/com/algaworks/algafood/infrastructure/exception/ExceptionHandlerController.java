@@ -1,7 +1,7 @@
-package com.algaworks.algafood.domain.exception;
+package com.algaworks.algafood.infrastructure.exception;
 
-import com.algaworks.algafood.domain.exception.dto.response.ErrorResponse;
-import com.algaworks.algafood.domain.exception.errors.ApiException;
+import com.algaworks.algafood.infrastructure.exception.dto.response.ErrorResponse;
+import com.algaworks.algafood.infrastructure.exception.errors.ApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

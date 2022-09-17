@@ -7,9 +7,9 @@ import com.algaworks.algafood.domain.entities.Kitchen;
 import java.util.List;
 
 public interface IKitchenService {
-    void create(CreateKitchenRequest request);
-    void update(long id, UpdatedKitchenRequest request);
-    void delete(long id);
-    Kitchen findById(long id);
+    void create(final CreateKitchenRequest request);
+    void update(final long id, UpdatedKitchenRequest request);
+    void delete(final long id);
+    Kitchen findById(final long id);
     List<Kitchen> findAll();
 }

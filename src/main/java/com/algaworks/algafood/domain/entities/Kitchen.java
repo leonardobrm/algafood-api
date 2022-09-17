@@ -18,8 +18,10 @@ public class Kitchen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column
     private String name;
+
     @JsonIgnore
     @OneToMany(mappedBy = "kitchen")
     private List<Restaurant> restaurants = new ArrayList<>();

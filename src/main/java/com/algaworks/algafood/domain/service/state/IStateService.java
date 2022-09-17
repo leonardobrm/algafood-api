@@ -7,9 +7,13 @@ import com.algaworks.algafood.domain.entities.State;
 import java.util.List;
 
 public interface IStateService {
-    void create(CreateStateRequest request);
+    void create(final CreateStateRequest request);
+
     List<State> findAll();
-    State findById(Long id);
-    void update(Long id, UpdateStateRequest request);
-    void delete(Long id);
+
+    State findById(final Long id);
+
+    void update(final Long id, UpdateStateRequest request);
+
+    void delete(final Long id);
 }

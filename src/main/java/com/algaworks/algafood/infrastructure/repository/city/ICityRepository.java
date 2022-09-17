@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.repository.city;
+package com.algaworks.algafood.infrastructure.repository.city;
 
 import com.algaworks.algafood.domain.entities.City;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface ICityRepository extends JpaRepository<City, Long> {
     @Query("from City r where r.state.id = :id")
-    Optional<List<City>> findByStateId(@Param("id") long id);
+    Optional<List<City>> findByStateId(final @Param("id") long id);
 
-    Optional<City> findByName(String name);
+    Optional<City> findByName(final String name);
 }

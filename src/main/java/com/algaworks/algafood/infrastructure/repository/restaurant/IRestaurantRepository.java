@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.repository.restaurant;
+package com.algaworks.algafood.infrastructure.repository.restaurant;
 
 import com.algaworks.algafood.domain.entities.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IRestaurantRepository extends JpaRepository<Restaurant, Long>, JpaSpecificationExecutor<Restaurant> {
-    Optional<Restaurant> findByName(String name);
+    Optional<Restaurant> findByName(final String name);
 
     @Query("from Restaurant r where r.kitchen.id = :id")
-    Optional<List<Restaurant>> findByKitchenId(@Param("id") long id);
+    Optional<List<Restaurant>> findByKitchenId(final @Param("id") long id);
 }

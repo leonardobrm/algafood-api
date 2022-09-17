@@ -10,8 +10,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class City {
+public class Permission {
 
+    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,11 +20,6 @@ public class City {
     @Column
     private String name;
 
-    @ManyToOne
-    private State state;
-
-    public City(String name, State state) {
-        this.name = name;
-        this.state = state;
-    }
+    @Column
+    private String description;
 }

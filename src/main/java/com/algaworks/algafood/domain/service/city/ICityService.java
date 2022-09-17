@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ICityService {
 
-    void create(CreateCityRequest request);
+    void create(final CreateCityRequest request);
     List<City> findAll();
-    City findById(Long id);
-    void update(Long id, UpdateCityRequest request);
-    void delete(Long id);
+    City findById(final Long id);
+    void update(final Long id, UpdateCityRequest request);
+    void delete(final Long id);
 }

@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.exception.errors;
+package com.algaworks.algafood.infrastructure.exception.errors;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
