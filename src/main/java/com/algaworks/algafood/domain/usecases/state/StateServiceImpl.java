@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.service.state;
+package com.algaworks.algafood.domain.usecases.state;
 
 import com.algaworks.algafood.domain.dto.request.state.CreateStateRequest;
 import com.algaworks.algafood.domain.dto.request.state.UpdateStateRequest;

@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.service.city;
+package com.algaworks.algafood.domain.usecases.city;
 
 import com.algaworks.algafood.domain.dto.request.city.CreateCityRequest;
 import com.algaworks.algafood.domain.dto.request.city.UpdateCityRequest;

@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.service.restaurant;
+package com.algaworks.algafood.domain.usecases.restaurant;
 
 import com.algaworks.algafood.domain.dto.request.restaurant.CreateRestaurantRequest;
 import com.algaworks.algafood.domain.dto.request.restaurant.UpdateRestaurantRequest;

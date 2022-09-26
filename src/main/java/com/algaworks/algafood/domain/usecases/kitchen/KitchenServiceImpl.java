@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.service.kitchen;
+package com.algaworks.algafood.domain.usecases.kitchen;
 
 import com.algaworks.algafood.domain.dto.request.kitchen.CreateKitchenRequest;
 import com.algaworks.algafood.domain.dto.request.kitchen.UpdatedKitchenRequest;
@@ -52,7 +52,7 @@ public class KitchenServiceImpl implements IKitchenService {
 
         //validated if there is a restaurant using this kitchen
         this.restaurantRepository.findByKitchenId(findKitchenExists.getId()).ifPresent(restaurant -> {
-            if (restaurant.size() > 0)
+            if (!restaurant.isEmpty())
                 throw new ApiException("There is a restaurant using the kitchen", HttpStatus.CONFLICT);
         });
         kitchenRepository.delete(findKitchenExists);

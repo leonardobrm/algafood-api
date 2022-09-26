@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.service.kitchen;
+package com.algaworks.algafood.domain.usecases.kitchen;
 
 import com.algaworks.algafood.domain.dto.request.kitchen.CreateKitchenRequest;
 import com.algaworks.algafood.domain.dto.request.kitchen.UpdatedKitchenRequest;

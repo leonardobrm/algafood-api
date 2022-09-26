@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.service.city;
+package com.algaworks.algafood.domain.usecases.city;
 
 import com.algaworks.algafood.domain.dto.request.city.CreateCityRequest;
 import com.algaworks.algafood.domain.dto.request.city.UpdateCityRequest;
@@ -20,6 +20,8 @@ import java.util.List;
 @Slf4j
 public class CityServiceImpl implements ICityService {
 
+    private final String CITY_NOT_EXISTS= "city not found";
+
     private final ICityRepository cityRepository;
     private final IStateRepository stateRepository;
 
@@ -31,10 +33,9 @@ public class CityServiceImpl implements ICityService {
         var state = this.stateRepository.findById(request.getIdState()).orElseThrow(() -> {
             throw new ApiException("state not found", HttpStatus.BAD_REQUEST);
         });
-
         var newCity = new City(request.getName(), state);
         this.cityRepository.save(newCity);
-        log.info("City created successfully");
+        log.debug("City created successfully");
     }
 
     @Override
@@ -45,14 +46,14 @@ public class CityServiceImpl implements ICityService {
     @Override
     public City findById(final Long id) {
         return this.cityRepository.findById(id).orElseThrow(() -> {
-            throw new ApiException("city not found", HttpStatus.NOT_FOUND);
+            throw new ApiException(CITY_NOT_EXISTS, HttpStatus.NOT_FOUND);
         });
     }
 
     @Override
     public void update(final Long id, final UpdateCityRequest request) {
         var verifyCityExists = this.cityRepository.findById(id).orElseThrow(() -> {
-            throw new ApiException("city not found", HttpStatus.NOT_FOUND);
+            throw new ApiException(CITY_NOT_EXISTS, HttpStatus.NOT_FOUND);
         });
         State state = null;
         if (request.getIdState() != null) {
@@ -60,10 +61,10 @@ public class CityServiceImpl implements ICityService {
                 throw new ApiException("State not found", HttpStatus.NOT_FOUND);
             });
         }
-        String validatedName = request.getName() != null && request.getName() != verifyCityExists.getName() ? request.getName()
+        String validatedName = request.getName() != null && !request.getName().equals(verifyCityExists.getName()) ? request.getName()
                 : verifyCityExists.getName();
 
-        State validateState = state != null && request.getIdState() != verifyCityExists.getState().getId() ? state
+        State validateState = state != null && !request.getIdState().equals(verifyCityExists.getState().getId()) ? state
                 : verifyCityExists.getState();
 
         var newCity = new City(validatedName, validateState);
@@ -76,7 +77,7 @@ public class CityServiceImpl implements ICityService {
     @Override
     public void delete(final Long id) {
         var findCityExists = this.cityRepository.findById(id).orElseThrow(() -> {
-            throw new ApiException("city not found", HttpStatus.NOT_FOUND);
+            throw new ApiException(CITY_NOT_EXISTS, HttpStatus.NOT_FOUND);
         });
 
         this.cityRepository.delete(findCityExists);
