@@ -1,6 +1,6 @@
 package com.algaworks.algafood.infrastructure.repository.city;
 
-import com.algaworks.algafood.domain.entities.City;
+import com.algaworks.algafood.domain.model.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

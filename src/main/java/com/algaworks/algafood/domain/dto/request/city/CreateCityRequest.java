@@ -1,16 +1,12 @@
 package com.algaworks.algafood.domain.dto.request.city;
 
-import com.sun.istack.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-public class CreateCityRequest {
-    @NotNull
-    private String name;
-    @NotNull
-    private Long idState;
-}
+public record CreateCityRequest(
+        @NonNull
+        String name,
+        @NonNull
+        Long idState) {
+};
+
+

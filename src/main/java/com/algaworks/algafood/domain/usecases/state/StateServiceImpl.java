@@ -2,7 +2,7 @@ package com.algaworks.algafood.domain.usecases.state;
 
 import com.algaworks.algafood.domain.dto.request.state.CreateStateRequest;
 import com.algaworks.algafood.domain.dto.request.state.UpdateStateRequest;
-import com.algaworks.algafood.domain.entities.State;
+import com.algaworks.algafood.domain.model.State;
 import com.algaworks.algafood.infrastructure.exception.errors.ApiException;
 import com.algaworks.algafood.infrastructure.repository.city.ICityRepository;
 import com.algaworks.algafood.infrastructure.repository.state.IStateRepository;
@@ -25,11 +25,11 @@ public class StateServiceImpl implements IStateService {
 
     @Override
     public void create(final CreateStateRequest request) {
-        Optional<State> verifyStateExists = this.stateRepository.findByName(request.getName());
+        Optional<State> verifyStateExists = this.stateRepository.findByName(request.name());
 
         if (verifyStateExists.isPresent()) throw new ApiException("State already exists", HttpStatus.BAD_REQUEST);
 
-        State newState = new State(request.getName(), request.getUf());
+        State newState = new State(request.name(), request.uf());
 
         this.stateRepository.save(newState);
         log.info("State created successfully");
@@ -53,10 +53,10 @@ public class StateServiceImpl implements IStateService {
             throw new ApiException("State not found", HttpStatus.NOT_FOUND);
         });
 
-        String name = request.getName() != null && request.getName() != verifyStateExists.getName() ? request.getName()
+        String name = request.name() != null && request.name() != verifyStateExists.getName() ? request.name()
                 : verifyStateExists.getName();
 
-        String uf = request.getUf() != null && request.getUf() != verifyStateExists.getUf() ? request.getUf()
+        String uf = request.uf() != null && request.uf() != verifyStateExists.getUf() ? request.uf()
                 : verifyStateExists.getUf();
 
         State newState = new State(name, uf);

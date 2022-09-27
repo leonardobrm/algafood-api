@@ -2,8 +2,8 @@ package com.algaworks.algafood.domain.usecases.city;
 
 import com.algaworks.algafood.domain.dto.request.city.CreateCityRequest;
 import com.algaworks.algafood.domain.dto.request.city.UpdateCityRequest;
-import com.algaworks.algafood.domain.entities.City;
-import com.algaworks.algafood.domain.entities.State;
+import com.algaworks.algafood.domain.model.City;
+import com.algaworks.algafood.domain.model.State;
 import com.algaworks.algafood.infrastructure.exception.errors.ApiException;
 import com.algaworks.algafood.infrastructure.repository.city.ICityRepository;
 import com.algaworks.algafood.infrastructure.repository.state.IStateRepository;
@@ -20,20 +20,20 @@ import java.util.List;
 @Slf4j
 public class CityServiceImpl implements ICityService {
 
-    private final String CITY_NOT_EXISTS= "city not found";
+    private final String CITY_NOT_EXISTS = "city not found";
 
     private final ICityRepository cityRepository;
     private final IStateRepository stateRepository;
 
     @Override
     public void create(final CreateCityRequest request) {
-        var verifyCityExists = this.cityRepository.findByName(request.getName());
+        var verifyCityExists = this.cityRepository.findByName(request.name());
         if (verifyCityExists.isPresent()) throw new ApiException("City already exists", HttpStatus.BAD_REQUEST);
 
-        var state = this.stateRepository.findById(request.getIdState()).orElseThrow(() -> {
+        var state = this.stateRepository.findById(request.idState()).orElseThrow(() -> {
             throw new ApiException("state not found", HttpStatus.BAD_REQUEST);
         });
-        var newCity = new City(request.getName(), state);
+        var newCity = new City(request.name(), state);
         this.cityRepository.save(newCity);
         log.debug("City created successfully");
     }
@@ -56,15 +56,15 @@ public class CityServiceImpl implements ICityService {
             throw new ApiException(CITY_NOT_EXISTS, HttpStatus.NOT_FOUND);
         });
         State state = null;
-        if (request.getIdState() != null) {
+        if (request.idState() != null) {
             state = this.stateRepository.findById(id).orElseThrow(() -> {
                 throw new ApiException("State not found", HttpStatus.NOT_FOUND);
             });
         }
-        String validatedName = request.getName() != null && !request.getName().equals(verifyCityExists.getName()) ? request.getName()
+        String validatedName = request.name() != null && !request.name().equals(verifyCityExists.getName()) ? request.name()
                 : verifyCityExists.getName();
 
-        State validateState = state != null && !request.getIdState().equals(verifyCityExists.getState().getId()) ? state
+        State validateState = state != null && !request.idState().equals(verifyCityExists.getState().getId()) ? state
                 : verifyCityExists.getState();
 
         var newCity = new City(validatedName, validateState);

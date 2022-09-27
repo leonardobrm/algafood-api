@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.entities;
+package com.algaworks.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -22,7 +22,6 @@ public class Kitchen {
     @Column
     private String name;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "kitchen")
     private List<Restaurant> restaurants = new ArrayList<>();
 

@@ -2,7 +2,7 @@ package com.algaworks.algafood.domain.usecases.city;
 
 import com.algaworks.algafood.domain.dto.request.city.CreateCityRequest;
 import com.algaworks.algafood.domain.dto.request.city.UpdateCityRequest;
-import com.algaworks.algafood.domain.entities.City;
+import com.algaworks.algafood.domain.model.City;
 
 import java.util.List;
 

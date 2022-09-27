@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.entities;
+package com.algaworks.algafood.domain.model;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

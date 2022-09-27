@@ -2,7 +2,7 @@ package com.algaworks.algafood.domain.usecases.kitchen;
 
 import com.algaworks.algafood.domain.dto.request.kitchen.CreateKitchenRequest;
 import com.algaworks.algafood.domain.dto.request.kitchen.UpdatedKitchenRequest;
-import com.algaworks.algafood.domain.entities.Kitchen;
+import com.algaworks.algafood.domain.model.Kitchen;
 import com.algaworks.algafood.infrastructure.exception.errors.ApiException;
 import com.algaworks.algafood.infrastructure.repository.kitchen.IKitchenRepository;
 import com.algaworks.algafood.infrastructure.repository.restaurant.IRestaurantRepository;
@@ -26,10 +26,10 @@ public class KitchenServiceImpl implements IKitchenService {
 
     @Override
     public void create(final CreateKitchenRequest request) {
-        var kitchenAlreadyExists = this.kitchenRepository.findByName(request.getName());
+        var kitchenAlreadyExists = this.kitchenRepository.findByName(request.name());
         if (kitchenAlreadyExists.isPresent()) throw new ApiException("Kitchen already exists", HttpStatus.BAD_REQUEST);
 
-        this.kitchenRepository.save(new Kitchen(request.getName()));
+        this.kitchenRepository.save(new Kitchen(request.name()));
         log.info("Kitchen created successufully");
     }
 

@@ -1,9 +1,8 @@
-package com.algaworks.algafood.domain.entities;
+package com.algaworks.algafood.domain.model;
 
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -11,7 +10,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Product {
+public class Permission {
+
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,13 +22,4 @@ public class Product {
 
     @Column
     private String description;
-
-    @Column
-    private BigDecimal price;
-
-    @Column
-    private Boolean active;
-
-    @ManyToOne
-    private Restaurant restaurant;
 }

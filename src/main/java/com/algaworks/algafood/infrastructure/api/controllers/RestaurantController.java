@@ -1,8 +1,8 @@
-package com.algaworks.algafood.infrastructure.controllers;
+package com.algaworks.algafood.infrastructure.api.controllers;
 
 import com.algaworks.algafood.domain.dto.request.restaurant.CreateRestaurantRequest;
 import com.algaworks.algafood.domain.dto.request.restaurant.UpdateRestaurantRequest;
-import com.algaworks.algafood.domain.entities.Restaurant;
+import com.algaworks.algafood.domain.model.Restaurant;
 import com.algaworks.algafood.domain.usecases.restaurant.IRestaurantService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

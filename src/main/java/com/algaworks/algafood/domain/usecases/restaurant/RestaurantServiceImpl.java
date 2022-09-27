@@ -2,8 +2,8 @@ package com.algaworks.algafood.domain.usecases.restaurant;
 
 import com.algaworks.algafood.domain.dto.request.restaurant.CreateRestaurantRequest;
 import com.algaworks.algafood.domain.dto.request.restaurant.UpdateRestaurantRequest;
-import com.algaworks.algafood.domain.entities.Kitchen;
-import com.algaworks.algafood.domain.entities.Restaurant;
+import com.algaworks.algafood.domain.model.Kitchen;
+import com.algaworks.algafood.domain.model.Restaurant;
 import com.algaworks.algafood.infrastructure.exception.errors.ApiException;
 import com.algaworks.algafood.infrastructure.repository.kitchen.IKitchenRepository;
 import com.algaworks.algafood.infrastructure.repository.restaurant.IRestaurantRepository;
@@ -28,13 +28,13 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
     @Override
     public void create(CreateRestaurantRequest request) {
-        var findKitchen = this.kitchenRepository.findByName(request.getKitchenName());
-        var kitchen = findKitchen.isEmpty() ? new Kitchen(request.getKitchenName()) : findKitchen.get();
+        var findKitchen = this.kitchenRepository.findByName(request.kitchenName());
+        var kitchen = findKitchen.isEmpty() ? new Kitchen(request.kitchenName()) : findKitchen.get();
         if (findKitchen.isEmpty()) this.kitchenRepository.save(kitchen);
-        var findRestaurantExists = this.restaurantRepository.findByName(request.getName()).stream().findFirst();
+        var findRestaurantExists = this.restaurantRepository.findByName(request.name()).stream().findFirst();
         if (findRestaurantExists.isPresent())
             throw new ApiException("Restaurant already exists", HttpStatus.BAD_REQUEST);
-        var newRestaurant = new Restaurant(request.getName(), request.getShippingRate(), kitchen);
+        var newRestaurant = new Restaurant(request.name(), request.shippingRate(), kitchen);
         this.restaurantRepository.save(newRestaurant);
         log.info("Restaurant created successfully");
     }

@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.entities;
+package com.algaworks.algafood.domain.model;
 
 import lombok.*;
 
@@ -10,16 +10,11 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class Permission {
+public class FormOfPayment {
 
-    @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private String name;
-
     @Column
     private String description;
 }

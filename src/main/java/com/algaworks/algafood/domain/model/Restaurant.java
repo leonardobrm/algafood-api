@@ -1,4 +1,4 @@
-package com.algaworks.algafood.domain.entities;
+package com.algaworks.algafood.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -30,11 +30,10 @@ public class Restaurant {
     @Column(name = "is_open")
     private boolean isOpen;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Kitchen kitchen;
 
-    @JsonIgnore
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "restaurant_form_payment",
     joinColumns = @JoinColumn(name = "restaurant_id"),
     inverseJoinColumns = @JoinColumn(name = "form_payment_id"))

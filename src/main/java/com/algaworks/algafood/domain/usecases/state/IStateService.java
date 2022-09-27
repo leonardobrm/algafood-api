@@ -2,7 +2,7 @@ package com.algaworks.algafood.domain.usecases.state;
 
 import com.algaworks.algafood.domain.dto.request.state.CreateStateRequest;
 import com.algaworks.algafood.domain.dto.request.state.UpdateStateRequest;
-import com.algaworks.algafood.domain.entities.State;
+import com.algaworks.algafood.domain.model.State;
 
 import java.util.List;
 
