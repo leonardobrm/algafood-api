@@ -30,13 +30,13 @@ public class Restaurant {
     @Column(name = "is_open")
     private boolean isOpen;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Kitchen kitchen;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(name = "restaurant_form_payment",
-    joinColumns = @JoinColumn(name = "restaurant_id"),
-    inverseJoinColumns = @JoinColumn(name = "form_payment_id"))
+            joinColumns = @JoinColumn(name = "restaurant_id"),
+            inverseJoinColumns = @JoinColumn(name = "form_payment_id"))
     private List<FormOfPayment> formOfPayments;
 
     @Embedded

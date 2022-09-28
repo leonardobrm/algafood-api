@@ -56,7 +56,7 @@ public class RestaurantServiceImpl implements IRestaurantService {
 
     @Override
     public List<Restaurant> findAll() {
-        return this.restaurantRepository.findAll(Sort.by("name"));
+        return this.restaurantRepository.findAll();
     }
 
     @Override

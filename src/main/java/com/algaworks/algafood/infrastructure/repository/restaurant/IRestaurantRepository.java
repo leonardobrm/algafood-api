@@ -12,6 +12,9 @@ import java.util.Optional;
 public interface IRestaurantRepository extends JpaRepository<Restaurant, Long>, JpaSpecificationExecutor<Restaurant> {
     Optional<Restaurant> findByName(final String name);
 
+    @Query("from Restaurant r join fetch r.kitchen left join fetch r.formOfPayments")
+    List<Restaurant> findAll();
+
     @Query("from Restaurant r where r.kitchen.id = :id")
     Optional<List<Restaurant>> findByKitchenId(final @Param("id") long id);
 }
