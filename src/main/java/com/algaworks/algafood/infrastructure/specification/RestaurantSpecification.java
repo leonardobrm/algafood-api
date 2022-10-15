@@ -1,6 +1,6 @@
 package com.algaworks.algafood.infrastructure.specification;
 
-import com.algaworks.algafood.domain.model.Restaurant;
+import com.algaworks.algafood.core.model.Restaurant;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;

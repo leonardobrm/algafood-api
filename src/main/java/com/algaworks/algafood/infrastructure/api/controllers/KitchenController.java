@@ -1,9 +1,9 @@
 package com.algaworks.algafood.infrastructure.api.controllers;
 
-import com.algaworks.algafood.domain.dto.request.kitchen.CreateKitchenRequest;
-import com.algaworks.algafood.domain.dto.request.kitchen.UpdatedKitchenRequest;
-import com.algaworks.algafood.domain.model.Kitchen;
-import com.algaworks.algafood.domain.usecases.kitchen.IKitchenService;
+import com.algaworks.algafood.core.dto.request.kitchen.CreateKitchenRequest;
+import com.algaworks.algafood.core.dto.request.kitchen.UpdatedKitchenRequest;
+import com.algaworks.algafood.core.model.Kitchen;
+import com.algaworks.algafood.core.usecases.kitchen.IKitchenService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

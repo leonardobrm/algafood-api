@@ -1,9 +1,9 @@
 package com.algaworks.algafood.infrastructure.api.controllers;
 
-import com.algaworks.algafood.domain.dto.request.city.CreateCityRequest;
-import com.algaworks.algafood.domain.dto.request.city.UpdateCityRequest;
-import com.algaworks.algafood.domain.model.City;
-import com.algaworks.algafood.domain.usecases.city.ICityService;
+import com.algaworks.algafood.core.dto.request.city.CreateCityRequest;
+import com.algaworks.algafood.core.dto.request.city.UpdateCityRequest;
+import com.algaworks.algafood.core.model.City;
+import com.algaworks.algafood.core.usecases.city.ICityService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package com.algaworks.algafood.infrastructure.repository.kitchen;
 
-import com.algaworks.algafood.domain.model.Kitchen;
+import com.algaworks.algafood.core.model.Kitchen;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

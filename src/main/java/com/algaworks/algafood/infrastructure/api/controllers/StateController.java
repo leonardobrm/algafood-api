@@ -1,9 +1,9 @@
 package com.algaworks.algafood.infrastructure.api.controllers;
 
-import com.algaworks.algafood.domain.dto.request.state.CreateStateRequest;
-import com.algaworks.algafood.domain.dto.request.state.UpdateStateRequest;
-import com.algaworks.algafood.domain.model.State;
-import com.algaworks.algafood.domain.usecases.state.IStateService;
+import com.algaworks.algafood.core.dto.request.state.CreateStateRequest;
+import com.algaworks.algafood.core.dto.request.state.UpdateStateRequest;
+import com.algaworks.algafood.core.model.State;
+import com.algaworks.algafood.core.usecases.state.IStateService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
